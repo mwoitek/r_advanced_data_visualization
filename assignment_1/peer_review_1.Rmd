@@ -13,8 +13,176 @@ jupyter:
     name: ir
 ---
 
+# More `ggplot` Figures Peer Review
 
+## PUT YOUR NAME HERE: Marcio Woitek
 
-```{r}
+```{r setup, include=FALSE}
+library(tidyverse)
+library(RColorBrewer)
+```
 
+## Problem 1
+
+Create the figure in the solution for Problem 1 using the data included in the
+R Markdown file.
+
+```{r problem_1_data, include=FALSE}
+set.seed(12345)
+var1 <- runif(50, 0, 10)
+
+set.seed(12345)
+var2 <- var1 + rnorm(50, 5, 2)
+
+set.seed(12345)
+var3 <- var1 * (-rnorm(50, 1, .2))
+
+dat1 <- tibble(var1, var2, var3)
+```
+
+```{r problem_1, echo=FALSE, message=FALSE}
+
+```
+
+## Problem 2
+
+Create the figure in the solution for Problem 2 using the data included in the
+R Markdown file.
+
+```{r problem_2_data, include=FALSE}
+set.seed(10)
+var1 <- runif(50, 0, 10)
+
+set.seed(10)
+var2 <- var1 + rnorm(50, 5, 2)
+
+set.seed(10)
+var3 <- var1 * (-rnorm(50, 1, .2))
+
+dat2 <- tibble(var1, var2, var3)
+```
+
+```{r problem_2, echo=FALSE, message=FALSE}
+
+```
+
+## Problem 3
+
+Create the figure in the solution for Problem 3 using the data included in the
+R Markdown file.
+
+```{r problem_3_data, include=FALSE}
+set.seed(12)
+var1 <- runif(50, 0, 10)
+
+set.seed(12)
+var2 <- var1 + rnorm(50, 5, 2)
+
+set.seed(12)
+var3 <- var1 * (-rnorm(50, 1, .2))
+
+dat3 <- tibble(var1, var2, var3)
+```
+
+```{r problem_3, echo=FALSE}
+
+```
+
+## Problem 4
+
+Create the figure in the solution for Problem 4 using the data included in the
+R Markdown file.
+
+```{r problem_4_data, include=FALSE}
+set.seed(5678)
+var1 <- rnorm(10, 25, 5)
+
+names <- letters[1:10]
+
+dat4 <- tibble(names, var1)
+```
+
+```{r problem_4, echo=FALSE}
+
+```
+
+## Problem 5
+
+Create the figure in the solution for Problem 5 using the data included in the
+R Markdown file.
+
+```{r problem_5_data, include=FALSE}
+set.seed(13)
+var1 <- rnorm(10, 25, 5)
+
+names <- letters[1:10]
+
+dat5 <- tibble(names, var1)
+```
+
+```{r problem_5, echo=FALSE}
+
+```
+
+## Problem 6
+
+Create the figure in the solution for Problem 6 using the data included in the
+R Markdown file.
+
+```{r problem_6_data, include=FALSE}
+set.seed(8)
+fiction <- tibble(
+    Genre = rep("Fiction", 5),
+    Time = seq(1:5),
+    Total = sample(1:10, 5)
+)
+
+set.seed(7)
+biography <- tibble(
+    Genre = rep("Biography", 5),
+    Time = seq(1:5),
+    Total = sample(1:10, 5)
+)
+
+set.seed(9)
+mystery <- tibble(
+    Genre = rep("Mystery", 5),
+    Time = seq(1:5),
+    Total = sample(1:10, 5)
+)
+
+books_checked_out <- bind_rows(fiction, biography, mystery)
+```
+
+```{r problem_6, echo=FALSE}
+
+```
+
+## Problem 7
+
+Create the figure in the solution for Problem 7 using the data included in the
+R Markdown file.
+
+```{r problem_7_data, include=FALSE}
+books_checked_out2 <- books_checked_out %>%
+    filter(Time == 1 | Time == 5) %>%
+    pivot_wider(names_from = Time, values_from = Total) %>%
+    rename(Time1 = `1`, Time5 = `5`)
+```
+
+```{r problem_7, echo=FALSE, message=FALSE}
+
+```
+
+## Problem 8
+
+Create the figure in the solution for Problem 8 using the data included in the
+R Markdown file.
+
+```{r problem_8_data, include=FALSE}
+pie_dat <- c(1, 2, 3, 4, 5)
+```
+
+```{r problem_8, echo=FALSE}
+my_color <- brewer.pal(5, "Spectral")
 ```
