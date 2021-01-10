@@ -1,37 +1,24 @@
-# ---
-# jupyter:
-#   jupytext:
-#     formats: ipynb,R:percent,Rmd
-#     text_representation:
-#       extension: .R
-#       format_name: percent
-#       format_version: '1.3'
-#       jupytext_version: 1.8.1
-#   kernelspec:
-#     display_name: R
-#     language: R
-#     name: ir
-# ---
+---
+title: "Spatial Figures Peer Review"
+output: html_document
+---
 
-# %% [markdown]
-# # Spatial Figures Peer Review
-#
-# ## PUT YOUR NAME HERE: Marcio Woitek
+## PUT YOUR NAME HERE: Marcio Woitek
 
-# %% name="setup" tags=["remove_cell"]
+```{r setup, include=FALSE}
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(maps))
 suppressPackageStartupMessages(library(sf))
 suppressPackageStartupMessages(library(rnaturalearth))
 suppressPackageStartupMessages(library(rnaturalearthdata))
 suppressPackageStartupMessages(library(rgeos))
+```
 
-# %% [markdown]
-# ## Problem 1
-#
-# Create the figure using the data included in the R Markdown file.
+## Problem 1
 
-# %% name="problem_1_data" tags=["remove_cell"]
+Create the figure using the data included in the R Markdown file.
+
+```{r problem_1_data, include=FALSE}
 # Make some data for painting the map:
 my_world_map <- map_data("world")
 countries <- unique(my_world_map$region)
@@ -40,8 +27,9 @@ some_data_values <- data.frame(
     "region" = countries,
     "Score" = runif(252, 0, 100)
 )
+```
 
-# %% name="problem_1" tags=["remove_input"] message=false
+```{r problem_1, echo=FALSE, message=FALSE}
 # Use `left_join` to combine `my_world_map` and `some_data_values`:
 data_plot_1 <- dplyr::left_join(my_world_map, some_data_values, by = "region")
 
@@ -56,17 +44,18 @@ ggplot2::ggplot(
     )) +
     ggplot2::geom_polygon() +
     ggplot2::scale_fill_distiller(palette = 5)
+```
 
-# %% [markdown]
-# ## Problem 2
-#
-# Create the figure using the data included in the R Markdown file.
+## Problem 2
 
-# %% name="problem_2_data" tags=["remove_cell"]
+Create the figure using the data included in the R Markdown file.
+
+```{r problem_2_data, include=FALSE}
 set.seed(15)
 Measurement <- rnorm(32, 50, 1)
+```
 
-# %% name="problem_2" tags=["remove_input"] message=false
+```{r problem_2, echo=FALSE, message=FALSE}
 # Get just the maps of Costa Rica, Panama and Nicaragua:
 three_countries_maps <- my_world_map %>%
     dplyr::filter(
@@ -107,20 +96,21 @@ ggplot2::ggplot(
         )) +
     ggplot2::scale_color_distiller(palette = 7) +
     ggplot2::guides(size = FALSE)
+```
 
-# %% [markdown]
-# ## Problem 3
-#
-# Create the figure using the data included in the R Markdown file.
+## Problem 3
 
-# %% name="problem_3_data" tags=["remove_cell"]
+Create the figure using the data included in the R Markdown file.
+
+```{r problem_3_data, include=FALSE}
 s_america <- ne_countries(
     scale = "medium",
     continent = "south america",
     returnclass = "sf"
 )
+```
 
-# %% name="problem_3" tags=["remove_input"]
+```{r problem_3, echo=FALSE}
 # Get the maps and population estimates for the South American countries:
 s_america_maps_pop <- dplyr::inner_join(
     my_world_map,
@@ -161,3 +151,4 @@ ggplot2::ggplot(
         panel.grid.minor.x = ggplot2::element_blank(),
         panel.grid.minor.y = ggplot2::element_blank()
     )
+```
