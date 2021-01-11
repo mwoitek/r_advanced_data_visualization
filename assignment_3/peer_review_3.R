@@ -19,10 +19,10 @@
 # ## PUT YOUR NAME HERE: Marcio Woitek
 
 # %% name="setup" tags=["remove_cell"]
-library(tidyverse)
-library(gganimate)
-library(gifski)
-library(plotly)
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(gganimate))
+suppressPackageStartupMessages(library(gifski))
+suppressPackageStartupMessages(library(plotly))
 
 # %% [markdown]
 # ## Problem 1
@@ -35,9 +35,24 @@ set.seed(84684)
 my_dat$Value <- sample(1:10, 9, replace = T)
 
 # %% name="problem_1" tags=["remove_input"] message=false
-# Put your ggplot figure with the appropriate gganimate functions here.
+ggplot2::ggplot(
+    data = my_dat,
+    mapping = ggplot2::aes(
+        x = Category,
+        y = Value,
+        fill = City
+    )) +
+    ggplot2::geom_col() +
+    gganimate::transition_states(
+        states = City,
+        state_length = 2
+    ) +
+    gganimate::enter_fade() +
+    gganimate::exit_fade()
 
 # %% [markdown]
+# ![Solution to Problem 1](problem_1.gif)
+#
 # ## Problem 2
 
 # %% name="problem_2_data" tags=["remove_cell"]
@@ -60,7 +75,18 @@ Great <- tibble(
 my_dat <- bind_rows(Energize, Amazing, Great)
 
 # %% name="problem_2" tags=["remove_input"] message=false warning=false
-# Put your ggplotly() figure here.
+# Create the `ggplot` figure:
+gg_figure <- ggplot2::ggplot(
+    data = my_dat,
+    mapping = ggplot2::aes(
+        x = Company,
+        y = Output,
+        fill = Company
+    )) +
+    ggplot2::geom_boxplot()
+
+# Create the interactive figure using `plotly`:
+plotly::ggplotly(gg_figure)
 
 # %% [markdown]
 # ## Problem 3
@@ -73,4 +99,23 @@ set.seed(78957)
 dat3$Quantity <- runif(100, 0, 10)
 
 # %% name="problem_3" tags=["remove_input"] message=false warning=false
-# Put your ggplotly() figure here.
+plotly::ggplotly(
+    ggplot2::ggplot(
+        mapping = ggplot2::aes(frame = Time)) +
+        ggplot2::geom_point(
+            data = dat3,
+            mapping = ggplot2::aes(
+                x = Category,
+                y = Quantity
+            )) +
+        ggplot2::geom_segment(
+            data = dat3,
+            mapping = ggplot2::aes(
+                x = Category,
+                xend = Category,
+                y = 0,
+                yend = Quantity
+            )) +
+        ggplot2::theme(
+            axis.text.x = ggplot2::element_text(angle = 90)
+        ))
